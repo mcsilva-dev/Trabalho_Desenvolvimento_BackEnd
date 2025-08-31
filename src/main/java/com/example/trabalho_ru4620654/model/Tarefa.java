@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +24,7 @@ public class Tarefa {
     @Column(name="nome", nullable = false, unique = true)
     private String nome;
     @Column(name="dataEntrega", nullable = false, columnDefinition = "DATE")
+    @com.fasterxml.jackson.annotation.JsonFormat(shape = com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataEntrega;
     @Column(name="responsavel", nullable = false)
     private String responsavel;

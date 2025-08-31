@@ -24,7 +24,7 @@ public class TarefaController {
 		this.repository = tarefaRepository;
 	}
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<?> findAll() {
         return repository.findAll();
     }
@@ -34,12 +34,12 @@ public class TarefaController {
         return repository.findById(id).map(record -> ResponseEntity.ok().body(record)).orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping(path="/criar")
     public Tarefa create(@RequestBody Tarefa tarefa){
         return repository.save(tarefa);
     }
 
-    @PutMapping(value = { "/{id}" })
+    @PutMapping(value = { "/editar/{id}" })
     public ResponseEntity<?> update(@PathVariable("id") long id, @RequestBody Tarefa tarefa){
         return repository.findById(id).map(record -> {
             record.setNome(tarefa.getNome());
@@ -50,7 +50,7 @@ public class TarefaController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping(path = { "/{id}" })
+    @DeleteMapping(path = { "/excluir/{id}" })
     public ResponseEntity<?> delete(@PathVariable long id){
         return repository.findById(id).map(record -> {
             repository.deleteById(id);
